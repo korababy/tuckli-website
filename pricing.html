@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tuckli — Pricing</title>
+<meta name="description" content="Three plans for the whole home: Solo, Home and Homes. Every plan starts with 14 days free.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#101210; --canvas:#171917; --surface:#252825; --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+  --ink:#ffffff; --muted:#B9BEB5; --dim:#7d8378; --lime:#C5FF5F; --yellow:#F8FF48; --char:#303030;
+  --citrus:linear-gradient(135deg,#F8FF48,#C5FF5F);
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.6 Inter, system-ui, -apple-system, sans-serif; -webkit-font-smoothing:antialiased; overflow-x:clip; }
+body::before { content:""; position:fixed; inset:0; pointer-events:none; z-index:100; opacity:.05; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+h1, h2, h3, .brand, .price { font-family:Poppins, system-ui, sans-serif; }
+.wrap { max-width:1180px; margin:0 auto; padding:0 24px; }
+a { color:inherit; }
+
+header { position:sticky; top:0; z-index:50; backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+  background:rgba(16,18,16,.62); border-bottom:1px solid var(--line); }
+.bar { display:flex; justify-content:space-between; align-items:center; height:68px; }
+.brand { display:flex; align-items:center; gap:10px; font-weight:700; font-size:22px; letter-spacing:-.02em; text-decoration:none; }
+.brand svg { width:30px; height:30px; }
+nav { display:flex; align-items:center; gap:26px; font-size:15px; }
+nav a { color:var(--muted); text-decoration:none; transition:color .2s; }
+nav a:hover, nav a[aria-current] { color:var(--ink); }
+nav .soon { color:var(--char); background:var(--citrus); padding:9px 16px; border-radius:999px; font-weight:600; white-space:nowrap; }
+@media (max-width:640px) { nav a:not(.soon) { display:none; } }
+
+.hero { position:relative; text-align:center; padding:84px 0 56px; }
+.aura { position:absolute; left:50%; top:-80px; width:min(1000px,160vw); height:640px; transform:translateX(-50%); pointer-events:none;
+  background:radial-gradient(closest-side at 50% 40%, rgba(197,255,95,.18), transparent 70%); filter:blur(20px); }
+.kicker { color:var(--lime); font-size:13px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; }
+h1 { position:relative; font-weight:700; font-size:clamp(40px, 6.6vw, 86px); line-height:1; letter-spacing:-.045em; margin:18px auto 20px; max-width:14ch; text-wrap:balance; }
+h1 span { background:var(--citrus); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.lead { position:relative; color:var(--muted); font-size:clamp(18px,2vw,20px); max-width:46ch; margin:0 auto; }
+.trial { position:relative; display:inline-flex; align-items:center; gap:10px; margin-top:26px; border:1px solid var(--line2); background:rgba(255,255,255,.03);
+  padding:7px 16px 7px 8px; border-radius:999px; color:var(--muted); font-size:14px; }
+.trial b { background:var(--citrus); color:var(--char); font-weight:600; padding:3px 10px; border-radius:999px; font-size:12px; white-space:nowrap; }
+
+/* Plans */
+.plans { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; align-items:stretch; margin-bottom:110px; }
+.plan { position:relative; display:flex; flex-direction:column; border-radius:28px; padding:30px 28px 30px; border:1px solid var(--line);
+  background:linear-gradient(180deg, rgba(37,40,37,.92), rgba(23,25,23,.92)); transition:transform .3s, border-color .3s; }
+.plan:hover { transform:translateY(-4px); border-color:var(--line2); }
+.plan.lit { border:1px solid transparent; background:linear-gradient(180deg,#232a1b,#181b16) padding-box, var(--citrus) border-box; box-shadow:0 30px 80px rgba(197,255,95,.12); }
+.plan .tag { position:absolute; top:-13px; left:28px; background:var(--citrus); color:var(--char); font-size:12px; font-weight:600; padding:5px 12px; border-radius:999px; }
+.plan .icon { width:52px; height:52px; border-radius:16px; background:rgba(197,255,95,.1); display:grid; place-items:center; margin-bottom:22px; }
+.plan .icon svg { width:26px; height:26px; stroke:var(--lime); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.plan h3 { font-weight:600; font-size:26px; letter-spacing:-.02em; margin:0; }
+.plan .who { color:var(--muted); margin:4px 0 22px; }
+.price { font-weight:700; font-size:46px; letter-spacing:-.04em; line-height:1; display:flex; align-items:baseline; gap:8px; }
+.price small { font:500 15px/1 Inter, sans-serif; color:var(--muted); letter-spacing:0; }
+.price .cur { font-size:20px; font-weight:600; color:var(--muted); letter-spacing:0; }
+.after { color:var(--dim); font-size:14px; margin:10px 0 24px; }
+.plan ul { list-style:none; padding:24px 0 0; margin:0 0 28px; border-top:1px solid var(--line); display:grid; gap:13px; flex:1; }
+.plan li { display:flex; gap:12px; align-items:flex-start; color:var(--ink); font-size:16px; }
+.plan li::before { content:""; flex:none; width:20px; height:20px; margin-top:2px; border-radius:50%; background:rgba(197,255,95,.14) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.6 2.5L14 7.5' fill='none' stroke='%23C5FF5F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat; }
+.plan li b { font-weight:600; }
+.btn { display:block; text-align:center; padding:15px 22px; border-radius:999px; font-weight:600; font-size:16px; text-decoration:none; transition:transform .2s; }
+.btn:hover { transform:translateY(-2px); }
+.btn.primary { background:var(--citrus); color:var(--char); box-shadow:0 12px 40px rgba(197,255,95,.22); }
+.btn.ghost { border:1px solid var(--line2); color:var(--ink); }
+@media (max-width:980px) { .plans { grid-template-columns:1fr; max-width:480px; margin-left:auto; margin-right:auto; } .plan.lit { order:-1; } }
+
+/* Comparison */
+h2 { font-weight:700; font-size:clamp(32px,4.6vw,54px); line-height:1.04; letter-spacing:-.04em; margin:14px 0 30px; }
+.center { text-align:center; }
+.table-wrap { border:1px solid var(--line); border-radius:28px; overflow-x:auto; background:var(--canvas); margin-bottom:110px; }
+table { width:100%; border-collapse:collapse; font-size:16px; }
+th, td { padding:18px 22px; text-align:center; border-bottom:1px solid var(--line); }
+th:first-child, td:first-child { text-align:left; color:var(--muted); }
+thead th { font-family:Poppins; font-weight:600; font-size:18px; color:var(--ink); background:rgba(255,255,255,.02); }
+thead th.lit { color:var(--lime); }
+tbody tr:last-child td { border-bottom:none; }
+td.lit { background:rgba(197,255,95,.04); }
+.yes { display:inline-block; width:22px; height:22px; border-radius:50%; background:rgba(197,255,95,.16) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.6 2.5L14 7.5' fill='none' stroke='%23C5FF5F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/22px no-repeat; vertical-align:middle; }
+.no { color:var(--dim); }
+@media (max-width:640px) { th, td { padding:13px 5px; font-size:13px; } th:first-child, td:first-child { padding-left:14px; } thead th { font-size:14px; } tbody tr:last-child td { white-space:nowrap; font-size:12px; } }
+
+/* FAQ */
+.faq { max-width:780px; margin:0 auto 110px; }
+details { border-bottom:1px solid var(--line); padding:6px 0; }
+summary { list-style:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:20px; padding:18px 0; font-family:Poppins; font-weight:600; font-size:19px; letter-spacing:-.01em; }
+summary::-webkit-details-marker { display:none; }
+summary::after { content:"+"; flex:none; width:32px; height:32px; border-radius:50%; border:1px solid var(--line2); display:grid; place-items:center; color:var(--lime); font:400 22px/1 Inter; transition:transform .3s; }
+details[open] summary::after { transform:rotate(45deg); }
+details p { color:var(--muted); margin:0 0 20px; max-width:62ch; }
+
+.final { text-align:center; padding:10px 0 120px; }
+.final .mark { width:84px; height:84px; margin:0 auto 22px; filter:drop-shadow(0 20px 40px rgba(197,255,95,.3)); animation:float 6s ease-in-out infinite; }
+@keyframes float { 50% { transform:translateY(-12px); } }
+.final h2 { max-width:14ch; margin-left:auto; margin-right:auto; }
+.final .btn { display:inline-block; }
+footer { border-top:1px solid var(--line); padding:28px 0 44px; color:var(--dim); font-size:14px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; }
+footer a { color:var(--muted); text-decoration:none; margin-left:18px; }
+
+.rv { opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+.rv.in { opacity:1; transform:none; }
+.rv.d1 { transition-delay:.08s; } .rv.d2 { transition-delay:.16s; } .rv.d3 { transition-delay:.24s; }
+.hero .rv { opacity:1; transform:none; animation:rise 1s cubic-bezier(.2,.7,.2,1) both; }
+.hero .rv.d1 { animation-delay:.1s; } .hero .rv.d2 { animation-delay:.2s; } .hero .rv.d3 { animation-delay:.3s; }
+@keyframes rise { from { opacity:0; transform:translateY(24px); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation:none !important; transition:none !important; } .rv { opacity:1; transform:none; } }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="t" viewBox="0 0 100 100"><path d="M 2 19 C 3 8 24 7 48 8 C 73 7 94 8 98 18 L 98 30 C 97 36 82 38 52 38 L 14 39 C 6 39 2 35 2 29 Z" transform="rotate(-3 50 24)"/><path d="M 35 49 C 35 43 40 42 49 42 L 58 42 C 64 43 66 47 66 52 L 66 59 C 66 65 62 67 55 67 L 45 67 C 37 67 34 64 34 59 Z" transform="rotate(-3 50 54.5)"/><path d="M 36 77 C 36 72 40 71 46 71 L 62 71 C 68 71 70 73 70 78 L 70 82 C 70 91 62 94 53 94 C 42 94 36 90 36 83 Z" transform="rotate(8 53 82.5)"/></symbol>
+  <linearGradient id="cit" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F8FF48"/><stop offset="1" stop-color="#C5FF5F"/></linearGradient>
+</svg>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="index.html"><svg fill="#C5FF5F"><use href="#t"/></svg>Tuckli</a>
+    <nav><a href="index.html#how">How it works</a><a href="pricing.html" aria-current="page">Pricing</a><a href="privacy.html">Privacy</a><a href="support.html">Support</a><a class="soon" href="#soon">30 November</a></nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="aura"></div>
+    <div class="wrap">
+      <span class="kicker rv">Pricing</span>
+      <h1 class="rv d1">One plan for <span>the whole home.</span></h1>
+      <p class="lead rv d2">Pick how many homes and how many people. Everything inside is unlimited — every room, shelf, freezer and box.</p>
+      <span class="trial rv d3"><b>14 days free</b>On every plan, through your Apple ID</span>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="plans">
+      <article class="plan rv">
+        <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg></div>
+        <h3>Solo</h3>
+        <p class="who">Just you, one home.</p>
+        <div class="price"><span class="cur">CHF</span>1.99<small>a month</small></div>
+        <p class="after">After 14 days free</p>
+        <ul>
+          <li><span><b>1 home</b>, just you</span></li>
+          <li>Unlimited rooms, shelves and boxes</li>
+          <li>Photos that name what they see</li>
+          <li>Ask and search like you talk</li>
+        </ul>
+        <a class="btn ghost" href="#soon">Coming 30 November</a>
+      </article>
+
+      <article class="plan lit rv d1">
+        <span class="tag">For a household</span>
+        <div class="icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3"/><circle cx="17" cy="9.5" r="2.5"/><path d="M3 19.5c0-3 2.7-5 6-5s6 2 6 5M15 15c3 0 6 1.5 6 4.5"/></svg></div>
+        <h3>Home</h3>
+        <p class="who">One home, shared with the people you live with.</p>
+        <div class="price"><span class="cur">CHF</span>3.99<small>a month</small></div>
+        <p class="after">After 14 days free · one payment for everyone</p>
+        <ul>
+          <li><span><b>1 home</b>, up to <b>6 people</b></span></li>
+          <li>Unlimited rooms, shelves and boxes</li>
+          <li>Photos that name what they see</li>
+          <li>Ask and search like you talk</li>
+          <li>See who moved what, and when</li>
+        </ul>
+        <a class="btn primary" href="#soon">Coming 30 November</a>
+      </article>
+
+      <article class="plan rv d2">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M2.5 11L8 6.5l5.5 4.5V19h-11z"/><path d="M13 9.5l4.5-3.5 4.5 3.5V19h-6"/></svg></div>
+        <h3>Homes</h3>
+        <p class="who">For a holiday flat, a cellar or a parent’s place too.</p>
+        <div class="price"><span class="cur">CHF</span>6.99<small>a month</small></div>
+        <p class="after">After 14 days free · one payment for everyone</p>
+        <ul>
+          <li><span>Up to <b>3 homes</b>, up to <b>10 people</b></span></li>
+          <li>Unlimited rooms, shelves and boxes</li>
+          <li>Photos that name what they see</li>
+          <li>Ask and search like you talk</li>
+          <li>See who moved what, and when</li>
+        </ul>
+        <a class="btn ghost" href="#soon">Coming 30 November</a>
+      </article>
+    </section>
+
+    <section>
+      <div class="center"><span class="kicker rv">Compare</span><h2 class="rv d1">What each plan holds.</h2></div>
+      <div class="table-wrap rv">
+        <table>
+          <thead><tr><th></th><th>Solo</th><th class="lit">Home</th><th>Homes</th></tr></thead>
+          <tbody>
+            <tr><td>Homes</td><td>1</td><td class="lit">1</td><td>3</td></tr>
+            <tr><td>People</td><td>1</td><td class="lit">6</td><td>10</td></tr>
+            <tr><td>Rooms, shelves and boxes</td><td>Unlimited</td><td class="lit">Unlimited</td><td>Unlimited</td></tr>
+            <tr><td>Photo recognition</td><td><span class="yes" aria-label="Included"></span></td><td class="lit"><span class="yes" aria-label="Included"></span></td><td><span class="yes" aria-label="Included"></span></td></tr>
+            <tr><td>Ask and search</td><td><span class="yes" aria-label="Included"></span></td><td class="lit"><span class="yes" aria-label="Included"></span></td><td><span class="yes" aria-label="Included"></span></td></tr>
+            <tr><td>Shared activity</td><td class="no">—</td><td class="lit"><span class="yes" aria-label="Included"></span></td><td><span class="yes" aria-label="Included"></span></td></tr>
+            <tr><td>A month</td><td>CHF 1.99</td><td class="lit">CHF 3.99</td><td>CHF 6.99</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="faq">
+      <div class="center"><span class="kicker rv">Questions</span><h2 class="rv d1">Good to know.</h2></div>
+      <details class="rv"><summary>What counts as a home?</summary><p>A home is a top-level place — your flat, a holiday house, a cellar across town. The rooms, shelves, freezers and boxes inside it are free and unlimited.</p></details>
+      <details class="rv"><summary>Does everyone in the household pay?</summary><p>No. The plan belongs to the household: one person pays, and everyone they invite uses it.</p></details>
+      <details class="rv"><summary>How does the free trial work?</summary><p>Every plan starts with 14 days free, once per Apple ID. After that it renews at its price unless you cancel.</p></details>
+      <details class="rv"><summary>How do I pay or cancel?</summary><p>Through Apple, with your Apple ID — Tuckli never sees your card. Cancel any time in your iPhone’s Settings → your name → Subscriptions.</p></details>
+      <details class="rv"><summary>I’m not in Switzerland. What does it cost?</summary><p>The prices here are in Swiss francs. In other countries the App Store shows the price in your own currency.</p></details>
+      <details class="rv"><summary>Can I change plans later?</summary><p>Yes. Move up or down between Solo, Home and Homes in your Apple ID’s subscriptions.</p></details>
+    </section>
+
+    <section class="final" id="soon">
+      <svg class="mark rv" viewBox="0 0 100 100" fill="url(#cit)"><use href="#t"/></svg>
+      <h2 class="rv d1">Coming to iPhone on 30 November.</h2>
+      <a class="btn primary rv d2" href="index.html#how">See how it works</a>
+    </section>
+
+    <footer><span>© 2026 Tuckli</span><span><a href="mailto:support@tuckli.app">support@tuckli.app</a><a href="privacy.html">Privacy</a><a href="support.html">Support</a></span></footer>
+  </div>
+</main>
+
+<script>
+(function () {
+  var rv = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); rv.unobserve(e.target); } }); }, { threshold: .12 });
+  document.querySelectorAll('.rv').forEach(function (el) { rv.observe(el); });
+})();
+</script>
+</body>
+</html>
