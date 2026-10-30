@@ -1,0 +1,7 @@
+/* The site's two faces, served from tuckli.app itself — never from Google (audit 2026-10-31, B4: a visitor's address
+   went to fonts.googleapis.com on every page; the files are the app's own, Open Font License). */
+@font-face { font-family: "Poppins"; font-weight: 500; font-style: normal; font-display: swap; src: url("fonts/Poppins_500Medium.ttf") format("truetype"); }
+@font-face { font-family: "Poppins"; font-weight: 600; font-style: normal; font-display: swap; src: url("fonts/Poppins_600SemiBold.ttf") format("truetype"); }
+@font-face { font-family: "Poppins"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/Poppins_700Bold.ttf") format("truetype"); }
+@font-face { font-family: "Inter"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/Inter_400Regular.ttf") format("truetype"); }
+@font-face { font-family: "Inter"; font-weight: 500 600; font-style: normal; font-display: swap; src: url("fonts/Inter_500Medium.ttf") format("truetype"); }
