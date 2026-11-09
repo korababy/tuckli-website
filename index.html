@@ -159,6 +159,20 @@ h2 { font-weight:700; font-size:clamp(34px,5.4vw,64px); line-height:1.02; letter
 .final { text-align:center; padding:40px 0 130px; }
 .final .mark { width:96px; height:96px; margin:0 auto 26px; animation:float 6s ease-in-out infinite; filter:drop-shadow(0 20px 40px rgba(197,255,95,.3)); }
 .final h2 { max-width:12ch; margin-left:auto; margin-right:auto; }
+.list { max-width:460px; margin:34px auto 0; }
+.list label { display:block; font-family:Poppins; font-weight:600; font-size:18px; margin-bottom:14px; }
+.list .row { display:flex; gap:10px; }
+.list input[type=email] { flex:1; min-width:0; padding:15px 20px; border-radius:999px; border:1px solid var(--line2); background:var(--surface);
+  color:var(--ink); font:inherit; font-size:16px; }
+.list input[type=email]::placeholder { color:var(--dim); }
+.list input[type=email]:focus { outline:2px solid var(--lime); outline-offset:2px; }
+.list button { border:0; cursor:pointer; font-family:inherit; }
+.list .note { color:var(--muted); font-size:14px; margin:14px 0 0; }
+.list .note a { color:var(--muted); }
+.list .said { color:var(--ink); font-size:16px; }
+.list [hidden] { display:none; }
+.list .hp { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+@media (max-width:480px) { .list .row { flex-direction:column; } }
 footer { border-top:1px solid var(--line); padding:28px 0 44px; color:var(--dim); font-size:14px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; }
 footer a { color:var(--muted); text-decoration:none; margin-left:18px; }
 
@@ -316,7 +330,19 @@ footer a { color:var(--muted); text-decoration:none; margin-left:18px; }
     <section class="final" id="soon">
       <svg class="mark rv" viewBox="0 0 100 100" fill="url(#cit)"><use href="#t"/></svg>
       <h2 class="rv d1">Coming to iPhone on 30 November.</h2>
-      <div class="ctas rv d2"><a class="btn primary" href="pricing.html">See the plans</a><a class="btn ghost" href="support.html">Questions? Write to us</a></div>
+      <!-- The launch list (launch 10.8, D267): a plain form to our own server, no script needed, no key on the page.
+           Only the email and the page's language are kept; one email on the day, then the list is deleted. -->
+      <form class="list rv d2" id="list" action="https://sxhjxsjjyprupqsnqwtb.supabase.co/functions/v1/join-list" method="post">
+        <label for="list-email">Hear on the day it’s out</label>
+        <div class="row"><input id="list-email" name="email" type="email" required maxlength="254" autocomplete="email" placeholder="Your email"><button class="btn primary" type="submit">Tell me</button></div>
+        <input type="hidden" name="lang" value="en">
+        <div class="hp" aria-hidden="true"><label>Leave this empty <input name="website" tabindex="-1" autocomplete="off"></label></div>
+        <p class="note" data-list="">One email on 30 November, then we delete the list. <a href="privacy.html#list">How we keep it</a></p>
+        <p class="note said" data-list="thanks" role="status" hidden>You’re on the list. One email on 30 November, then we delete it.</p>
+        <p class="note said" data-list="check" role="status" hidden>That doesn’t look like an email. Try once more?</p>
+        <p class="note said" data-list="retry" role="status" hidden>We couldn’t keep it just now. Try again in a minute.</p>
+      </form>
+      <div class="ctas rv d3"><a class="btn ghost" href="pricing.html">See the plans</a><a class="btn ghost" href="support.html">Questions? Write to us</a></div>
     </section>
 
     <footer><span>© 2026 Tuckli</span><span><a href="mailto:support@tuckli.app">support@tuckli.app</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms of use</a><a href="support.html">Support</a></span></footer>
@@ -369,6 +395,15 @@ footer a { color:var(--muted); text-decoration:none; margin-left:18px; }
   var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) play(+e.target.parentNode.dataset.step); }); }, { rootMargin: window.matchMedia('(max-width:900px)').matches ? '-56% 0px -24% 0px' : '-40% 0px -40% 0px' });
   chapters.forEach(function (c) { io.observe(c.querySelector('h3')); });
   play(0);
+
+  // The launch list: the server sends the person back with ?list=thanks | check | retry, and the line for it shows
+  var said = new URLSearchParams(location.search).get('list'), line = said && document.querySelector('.list [data-list="' + said + '"]');
+  if (line) {
+    line.hidden = false;
+    document.querySelector('.list [data-list=""]').hidden = true;
+    if (said === 'thanks') { document.querySelector('.list .row').hidden = true; document.querySelector('.list label').hidden = true; }
+    history.replaceState(null, '', location.pathname + '#list');
+  }
 })();
 </script>
 </body>
