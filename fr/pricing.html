@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F4F3EE">
 <title>Tuckli — Tarifs</title>
 <meta name="description" content="Commence gratuitement en saisissant tes objets à la main. Solo, Home et Homes ajoutent les photos, Demander et ton foyer, toutes avec 14 jours gratuits.">
 <link rel="stylesheet" href="../fonts.css">
@@ -27,7 +28,8 @@ header { position:sticky; top:0; z-index:50; backdrop-filter:blur(18px) saturate
 .brand svg { width:30px; height:30px; }
 nav { display:flex; align-items:center; gap:26px; font-size:15px; }
 nav a { color:var(--muted); text-decoration:none; transition:color .2s; }
-nav a:hover, nav a[aria-current] { color:var(--ink); }
+nav a[aria-current] { color:var(--ink); }
+@media (hover: hover) and (pointer: fine) { nav a:hover { color:var(--ink); } }
 nav .soon { color:var(--char); background:var(--citrus); padding:9px 16px; border-radius:999px; font-weight:600; white-space:nowrap; }
 @media (max-width:640px) { nav a:not(.soon) { display:none; } }
 
@@ -46,7 +48,7 @@ h1 span { background:var(--citrus); -webkit-background-clip:text; background-cli
 .plans { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; align-items:stretch; margin-bottom:110px; }
 .plan { position:relative; display:flex; flex-direction:column; border-radius:28px; padding:28px 22px 26px; border:1px solid var(--line);
   background:linear-gradient(180deg, rgba(37,40,37,.92), rgba(23,25,23,.92)); transition:transform .3s, border-color .3s; }
-.plan:hover { transform:translateY(-4px); border-color:var(--line2); }
+@media (hover: hover) and (pointer: fine) { .plan:hover { transform:translateY(-4px); border-color:var(--line2); } }
 .plan.lit { border:1px solid transparent; background:linear-gradient(180deg,#232a1b,#181b16) padding-box, var(--citrus) border-box; box-shadow:0 30px 80px rgba(197,255,95,.12); }
 .plan .tag { position:absolute; top:-13px; left:28px; background:var(--citrus); color:var(--char); font-size:12px; font-weight:600; padding:5px 12px; border-radius:999px; }
 .plan .icon { width:52px; height:52px; border-radius:16px; background:rgba(197,255,95,.1); display:grid; place-items:center; margin-bottom:22px; }
@@ -62,7 +64,7 @@ h1 span { background:var(--citrus); -webkit-background-clip:text; background-cli
 .plan li::before { content:""; flex:none; width:20px; height:20px; margin-top:2px; border-radius:50%; background:rgba(197,255,95,.14) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.6 2.5L14 7.5' fill='none' stroke='%23C5FF5F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat; }
 .plan li b { font-weight:600; }
 .btn { display:block; text-align:center; padding:14px 16px; border-radius:999px; font-weight:600; font-size:15px; white-space:nowrap; text-decoration:none; transition:transform .2s; }
-.btn:hover { transform:translateY(-2px); }
+@media (hover: hover) and (pointer: fine) { .btn:hover { transform:translateY(-2px); } }
 .btn.primary { background:var(--citrus); color:var(--char); box-shadow:0 12px 40px rgba(197,255,95,.22); }
 .btn.ghost { border:1px solid var(--line2); color:var(--ink); }
 @media (max-width:1100px) { .plans { grid-template-columns:repeat(2,1fr); max-width:820px; margin-left:auto; margin-right:auto; } }
@@ -96,8 +98,7 @@ details[open] summary::after { transform:rotate(45deg); }
 details p { color:var(--muted); margin:0 0 20px; max-width:62ch; }
 
 .final { text-align:center; padding:10px 0 120px; }
-.final .mark { width:84px; height:84px; margin:0 auto 22px; filter:drop-shadow(0 20px 40px rgba(197,255,95,.3)); animation:float 6s ease-in-out infinite; }
-@keyframes float { 50% { transform:translateY(-12px); } }
+.final .mark { width:84px; height:84px; margin:0 auto 22px; }
 .final h2 { max-width:14ch; margin-left:auto; margin-right:auto; }
 .final .btn { display:inline-block; }
 footer { border-top:1px solid var(--line); padding:28px 0 44px; color:var(--dim); font-size:14px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; }
@@ -110,6 +111,39 @@ footer a { color:var(--muted); text-decoration:none; margin-left:18px; }
 .hero .rv.d1 { animation-delay:.1s; } .hero .rv.d2 { animation-delay:.2s; } .hero .rv.d3 { animation-delay:.3s; }
 @keyframes rise { from { opacity:0; transform:translateY(24px); } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation:none !important; transition:none !important; } .rv { opacity:1; transform:none; } }
+/* D303 — a phone is not a mouse (Emil Kowalski’s mobile-native, Apple’s fluid-interface rules): hovers only where
+   something really hovers, no grey flash on a tap, no tap delay, a button answers the moment it is pressed. */
+html { -webkit-tap-highlight-color:transparent; }
+a, button { touch-action:manipulation; }
+.btn:active { transform:scale(.97); transition:transform .1s ease-out; }
+/* Daylight (D305, Petru 2026-11-13: “Build B”) — the pricing page in the home page’s light look: paper, dark ink, lime as a
+   fill with dark ink on it; the household plan is the one dark card. Nothing loops. */
+:root { --bg:#F4F3EE; --canvas:#ffffff; --surface:#ffffff; --line:rgba(0,0,0,.07); --line2:rgba(0,0,0,.16); --ink:#1c1e1c; --muted:#5a5f56; --dim:#72776d; }
+body::before { display:none; }
+header { background:rgba(244,243,238,.78); }
+.brand svg { fill:var(--ink); }
+nav .soon { color:#fff; background:var(--ink); }
+.kicker { color:var(--ink); }
+h1 span { background:none; -webkit-background-clip:border-box; background-clip:border-box; color:inherit; }
+.aura { background:radial-gradient(closest-side at 50% 40%, rgba(197,255,95,.6), transparent 70%); }
+.trial { background:rgba(255,255,255,.6); color:var(--ink); }
+.trial b { background:var(--ink); color:var(--lime); }
+.plan { background:var(--canvas); border-color:transparent; box-shadow:0 1px 2px rgba(0,0,0,.05); }
+.plan .icon { background:var(--lime); }
+.plan .icon svg { stroke:#1c1e1c; }
+.plan li::before, .yes { background-color:var(--lime); background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.6 2.5L14 7.5' fill='none' stroke='%231c1e1c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.plan li.off::before { background-color:rgba(0,0,0,.05); }
+.plan.lit { border:0; background:#101210; color:#fff; box-shadow:0 30px 60px rgba(0,0,0,.18); --ink:#fff; --muted:#B9BEB5; --dim:#9aa095; --line:rgba(255,255,255,.12); --line2:rgba(255,255,255,.2); }
+.btn.primary { background:var(--ink); color:#fff; box-shadow:none; }
+.plan.lit .btn.primary { background:var(--citrus); color:var(--char); }
+.table-wrap { border-color:transparent; box-shadow:0 1px 2px rgba(0,0,0,.05); }
+thead th { background:rgba(0,0,0,.02); }
+thead th.lit { color:var(--ink); box-shadow:inset 0 -3px 0 var(--lime); }
+td.lit { background:rgba(197,255,95,.22); }
+summary::after { color:var(--ink); }
+.final .mark { box-sizing:border-box; padding:17px; border-radius:22px; background:var(--ink); }
+@media (prefers-reduced-transparency: reduce) { header { background:var(--bg); backdrop-filter:none; -webkit-backdrop-filter:none; } }
+@media (prefers-contrast: more) { :root { --line:rgba(0,0,0,.3); --line2:rgba(0,0,0,.5); --muted:#3c4039; --dim:#4c5048; } header { background:var(--bg); } }
 </style>
 <!-- tuckli-langs -->
 <link rel="alternate" hreflang="en" href="https://tuckli.app/pricing.html">
